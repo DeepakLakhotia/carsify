@@ -1,0 +1,596 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- <title>Responsive Navbar with Search Box | CodingNepal</title> -->
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/navigation.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/.png">
+
+    <title>Dashboard</title>
+</head>
+  <body>
+
+      <div class="boody">
+      <!-------------------------------navigation------------------------------------------------->
+      <nav>
+        <div class="menuicon">
+            <span class="fas fa-bars"></span>
+        </div>
+        <div class="logoo">
+          <img src="{% static 'assets/images/logo7.png' %}"/>
+        </div>
+        <div class="navitems">
+            <li><a href="{% url 'CarsifyApp:Dashboard' %}">Home</a></li>
+            {% comment %}
+            <li><a href="#">
+                <div class="dropdown show">
+                    <a class="btn dropdown-toggle dropdown-navi" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Booking Management
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="{% url 'CarsifyApp:Addcar' %}">Add Vehicle</a>
+                      <a class="dropdown-item" href="{% url 'CarsifyApp:MYvehicle' %}">My Vehicle</a>
+                      
+                    </div>
+                  </div>
+            </a></li>
+            {% endcomment %}
+            <li><a href="#"><div class="dropdown show">
+              <a class="btn dropdown-toggle dropdown-navi" href="profile.html" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Profile
+              </a>
+            
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'CarsifyApp:Profile' %}">View Profile</a>
+                <a class="dropdown-item" href="{% url 'CarsifyApp:Editprofile' %}">Edit Profile</a>
+                <a class="dropdown-item" href="{% url 'CarsifyApp:Logout' %}">Logout</a>
+              </div>
+            </div></a></li>
+            <li><a href="{% url 'CarsifyApp:Favourites' %}">Favourites</a></li>
+            <!-- <li><a href="#">Feedback</a></li> -->
+        </div>
+        <div class="searchicon">
+            <span class="fas fa-search"></span>
+        </div>
+        <div class="cancelicon">
+            <span class="fas fa-times"></span>
+        </div>
+        <form action="/dashboard">
+                <input name="q" type="search" class="search-data" placeholder="Search" required>
+                <button type="submit" class="fas fa-search"></button>
+        </form>
+    </nav>
+    <!--------------------------------------------body main--------------------------------------------->
+    <div class="container cont">
+        <div class="row">
+            <!-- refine by laptop -->
+            <div class="col-lg-3 refineby">
+                <ul>
+                    <h3>Refine By <span><i class="fa fa-arrow"></i></span></h3>
+                    <div class="scroll-refine">
+                        <ul>
+                            <li><i class="fa fa-plus first"></i>Brand
+                                <ul class="inner-refineby one">
+                                    {% for company_of_car in car_company_data %}
+                                        <li>
+                                        <input class="filter-checkbox" data-filter="company_of_car" value="{{ company_of_car.id }}" type="checkbox">
+                                        {{company_of_car}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+
+                            <li><i class="fa fa-plus second"></i>Fuel Type
+                                <ul class="inner-refineby two">
+                                    {% for fuel in fuels %}
+                                     <li>
+                                        <input class="filter-checkbox" data-filter="fuel" value="{{ fuel.id }}" type="checkbox">
+                                        {{fuel}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+
+                            <li><i class="fa fa-plus third"></i>Body Type
+                                <ul class="inner-refineby three">
+                                    {% for car_body_type in car_body_types %}
+                                    <li>
+                                        <input class="filter-checkbox" data-filter="car_body_type" value="{{car_body_type.id }}" type="checkbox">
+                                        {{car_body_type}}</li>
+
+                                    {% endfor %}
+
+                                </ul>
+                            </li>
+
+                            <li><i class="fa fa-plus fourth"></i>No. of Owners
+                                <ul class="inner-refineby four">
+
+                                     {% for owner in owners %}
+                                     <li>
+                                        <input class="filter-checkbox" data-filter="owner" value="{{ owner.id }}" type="checkbox">
+
+                                        {{owner.Owners}}<sup>{{owner}}</sup> Owner</li>
+
+                                    {% endfor %}
+
+                                </ul>
+                            </li>
+
+                            <li><i class="fa fa-plus fifth"></i>Transmission Type
+                                <ul class="inner-refineby five">
+
+                                    {% for transmission in transmission_type %}
+                                     <li>
+                                        <input class="filter-checkbox" data-filter="transmission" value="{{ transmission.id }}" type="checkbox">
+                                        {{transmission}}</li>
+                                    {% endfor %}
+
+                                </ul>
+                            </li> 
+                            
+                            
+                            <li><i class="fa fa-plus sixth"></i>Vehicle State
+                                <ul class="inner-refineby six">
+
+                                    {% for state in states %}
+                                     <li>
+                                        <input class="filter-checkbox" data-filter="state" value="{{ state.id }}" type="checkbox">
+                                        {{state}}</li>
+                                    {% endfor %}
+
+                                </ul>
+                            </li> 
+                         
+                             <!-- <form method="POST" id="locationForm" action="{% url 'CarsifyApp:filter_data' %}">
+                                 {% csrf_token %} 
+                                <label class="refine_label" for="">Registered Location</label>
+                                <input type="text" class="regLoc" name="registerLocation" id="registerLocation" onchange="document.getElementById('locationBtn').click()">
+                                <button class="d-none" type="submit" id="locationBtn" ></button>
+                            </form>  -->
+                            <!-- <label class="refine_label" for="">Registered Location</label>
+                            <input type="text" class="regLoc" name="registerLocation" id="registerLocation"> -->
+
+                            <label class="refine_label" for="">Model Year</label>
+                            <div class="inputs">
+
+                                <input type="range" min={{minmaxYear.Date_of_Manufacturing__min.year}} max={{minmaxYear.Date_of_Manufacturing__max.year}} id="rangeInputYear" oninput="maxYear.value=this.value"/>
+                               <input type="number" value={{minmaxYear.Date_of_Manufacturing__max.year}} min={{minmaxYear.Date_of_Manufacturing__min.year}} max={{minmaxYear.Date_of_Manufacturing__max.year}}  placeholder="Max" onkeyup="rangeInputYear.value=this.value" id="maxYear" class="model_year"/>
+
+                                <!--    
+                                <input type="number" value="2000" placeholder="Min" class="model_year">
+                                <input type="number" placeholder="Max" class="model_year">
+                                -->
+                            </div>
+
+                            <label class="refine_label" for="">Kilometers Driven</label>
+                            <div class="inputs">
+
+                                <input type="range" min={{minmaxKm.KM__min}} max={{minmaxKm.KM__max}} id="rangeInputKm" oninput="maxKm.value=this.value"/>
+                               <input type="number" value={{minmaxKm.KM__max}} min={{minmaxKm.KM__min}} max={{minmaxKm.KM__max}}  placeholder="Max" onkeyup="rangeInputKm.value=this.value" id="maxKm" class="model_year"/>
+
+
+
+                                <!--
+                                <input type="number" value="0" class="model_year">
+                                <input type="number" placeholder="Max" class="model_year">
+                                -->
+                            </div>
+
+                            <label class="refine_label" for="">Price</label>
+                            <div class="inputs">
+
+                               <input type="range" min={{Minmaxprice.Price__min}} max={{Minmaxprice.Price__max}} id="rangeInput" oninput="maxPrice.value=this.value"/>
+                               <input type="number" value={{Minmaxprice.Price__max}} min={{Minmaxprice.Price__min}} max={{Minmaxprice.Price__max}}  placeholder="Max" onkeyup="rangeInput.value=this.value" id="maxPrice" class="model_year"/>
+
+                                <!--
+                                <input type="number" value="0" class="model_year">
+                                <input type="number" placeholder="Max" class="model_year">
+                                -->
+                            </div>
+                        </ul>
+
+                    </div>
+                </ul>
+            </div>
+            <!--main content cards-->
+            <div class="col-xl-9 col-lg-12">
+                
+                <div class="row sortlap" style="position: relative; width: 100%; height: 30px;">
+                    <div class="col-12">
+                        <label id="cars_label" style="position: absolute; right: 0; top: 0;">Sort By
+                        <select id="cars" name="cars">
+                            <optgroup>
+                                    <option value="Relevance">Relevance</option>
+                                    <option value="price+">High To Low</option>
+                                    <option value="price-">Low To High</option>
+                                    <option value="year+">New To Old</option>
+                                    <option value="year-">Old To New</option>
+                                    
+                            </optgroup>
+                        </select>
+                        </label>
+                        
+                    </div>
+                    <!-- <label class="select" for="slct">
+                        <select id="slct" required="required">
+                          <option value="" disabled="disabled" selected="selected">Select option</option>
+                          <option value="#">One</option>
+                          <option value="#">Two</option>
+                          <option value="#">Three</option>
+                          <option value="#">Four</option>
+                          <option value="#">Five</option>
+                          <option value="#">Six</option>
+                          <option value="#">Seven</option>
+                        </select>
+                        <svg>
+                          <use xlink:href="#select-arrow-down"></use>
+                        </svg>
+                      </label>
+                    SVG Sprites
+                      <svg class="sprites">
+                        <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                          <polyline points="1 1 5 5 9 1"></polyline>
+                        </symbol>
+                      </svg> -->
+                </div>
+                <div class="row cards-div" id="filteredcars">
+                    <p  class="ajaxloader">Loading....</p>
+
+                    {% for car in car_data %}
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">{{ car.Company.Car_Company_Name }}</div>
+                                <div class="col-3"><p class="float-right">{{ car.Date_of_Manufacturing.year }}</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12" data-toggle="modal" data-target="#exampleModal" data-cid="{{car.id}}">
+                                        <img src="{{ car.Showimage.url }}" style="cursor: pointer;"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>{{ car.Model.Car_Model_Name}} - {{car.Car_Varient }} </div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> {{ car.Owners.Owners }}</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">{{ car.City }}</div>
+                                <div class="col-6"><p class="float-right car-number">{{ car.Card_Registration_Number }}</p></div>
+                            </div>
+                            <h5>Rs. {{ car.Price }}</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a target="_blank" href="{% url 'CarsifyApp:Viewdetails' car.id %}"><button>View Details</button></a>
+                                </div>
+                                {% if car.id in fav_id %}
+                                <div class="heart-car text-primary RemFavHeart" data-cid={{car.id}} style="cursor: pointer;" >
+                                    <a title="Remove from Favourites"><i class="fa fa-heart"></i></a>
+                                 </div>
+                                {% else %}
+                                <div class="heart-car AddFavHeart" data-cid={{car.id}} style="cursor: pointer;">
+                                    <a title="Add to Favourites"><i class="far fa-heart" ></i></a>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+               
+
+                
+               
+            </div>
+            <!---end main content cards -->
+           
+        </div>
+
+   </div>
+   
+   <div class="pagination" style="display: flex;
+                        justify-content: center;
+                        align-items: center; 
+                        padding: 15px 0px 15px 0px; ">
+        <span class="step-links">
+            {% if car_data.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ car_data.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                <b>Page {{ car_data.number }} of {{ car_data.paginator.num_pages }}.</b>
+            </span>
+
+            {% if car_data.has_next %}
+                <a href="?page={{ car_data.next_page_number }}">next</a>
+                <a href="?page={{ car_data.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    
+    <br><br>   
+
+   <!---refine and sort by mobile option -->
+<div class="text-center refinebymobile">
+    <ul>
+        
+        <li class="sort-icon"><i class="fa fa-plus"></i>sort</li>
+        <li class="filter-icon"><i class="fa fa-filter"></i>    filter</li>
+    </ul>
+    
+</div>
+
+
+
+
+
+
+<!---refine by mobile slider-->
+
+<div class="container-fluid filter">
+       <div class="filter-inner">
+        
+            <div class="filter-nav">
+                <i class="fa fa-times filter-cross"></i>
+                
+            </div>
+
+            <div class="filter-body">
+
+                <div class="container">
+                    <div class="mrefineby">
+                        <ul>
+                            <h3>Refine By <span><i class="fa fa-arrow"></i></span></h3>
+
+                            <ul>
+                                <li><i class="fa fa-plus firstm"></i>Brand
+                                    <ul class="inner-refineby onem">
+                                            {% for company_of_car in car_company_data %}
+                                            <li>
+                                            <input class="filter-checkbox" data-filter="company_of_car" value="{{ company_of_car.id }}" type="checkbox">
+                                            {{company_of_car}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li><i class="fa fa-plus secondm"></i>Fuel Type
+                                    <ul class="inner-refineby twom">
+                                            {% for fuel in fuels %}
+                                             <li>
+                                                <input class="filter-checkbox" data-filter="fuel" value="{{ fuel.id }}" type="checkbox">
+                                                {{fuel}}</li>
+                                            {% endfor %}
+                                    </ul>
+                                </li>
+                                <li><i class="fa fa-plus thirdm"></i>Body Type
+                                    <ul class="inner-refineby threem">
+                                      {% for car_body_type in car_body_types %}
+                                    <li>
+                                        <input class="filter-checkbox" data-filter="car_body_type" value="{{car_body_type.id }}" type="checkbox">
+                                        {{car_body_type}}</li>
+
+                                    {% endfor %}
+
+                                    </ul>
+                                </li>
+                                <li><i class="fa fa-plus fourthm"></i>No. of Owners
+                                    <ul class="inner-refineby fourm">
+
+                                     {% for owner in owners %}
+                                     <li>
+                                        <input class="filter-checkbox" data-filter="owner" value="{{ owner.id }}" type="checkbox">
+
+                                        {{owner.Owners}} <sup>{{owner}}</sup> Owner</li>
+
+                                    {% endfor %}
+
+                                    </ul>
+                                </li>
+                                <li><i class="fa fa-plus fifthm"></i>Transmission Type
+                                    <ul class="inner-refineby fivem">
+                                          {% for transmission in transmission_type %}
+                                         <li>
+                                            <input class="filter-checkbox" data-filter="transmission" value="{{ transmission.id }}" type="checkbox">
+                                            {{transmission}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+
+                                <li><i class="fa fa-plus sixthm"></i>Vehicle State
+                                    <ul class="inner-refineby sixm">
+    
+                                        {% for state in states %}
+                                         <li>
+                                            <input class="filter-checkbox" data-filter="state" value="{{ state.id }}" type="checkbox">
+                                            {{state}}</li>
+                                        {% endfor %}
+    
+                                    </ul>
+                                </li> 
+                                
+                            </ul>
+
+                            <label class="refine_label" for="">Model Year</label>
+                            <div class="inputs">
+
+                                <input type="range" min={{minmaxYear.Date_of_Manufacturing__min.year}} max={{minmaxYear.Date_of_Manufacturing__max.year}} id="rangeInputYearM" oninput="maxYearM.value=this.value"/>
+                               <input type="number" value={{minmaxYear.Date_of_Manufacturing__max.year}} min={{minmaxYear.Date_of_Manufacturing__min.year}} max={{minmaxYear.Date_of_Manufacturing__max.year}}  placeholder="Max" onkeyup="rangeInputYearM.value=this.value" id="maxYearM" class="model_year"/>
+
+                            </div>                                
+
+                            <label class="refine_label" for="">Kilometers Driven</label>
+                            <div class="inputs">
+
+                                <input type="range" min={{minmaxKm.KM__min}} max={{minmaxKm.KM__max}} id="rangeInputKmM" oninput="maxKmM.value=this.value"/>
+                               <input type="number" value={{minmaxKm.KM__max}} min={{minmaxKm.KM__min}} max={{minmaxKm.KM__max}}  placeholder="Max" onkeyup="rangeInputKmM.value=this.value" id="maxKmM" class="model_year"/>
+
+
+                            </div>
+
+                            <label class="refine_label" for="">Price</label>
+                            <div class="inputs">
+
+                               <input type="range" min={{Minmaxprice.Price__min}} max={{Minmaxprice.Price__max}} id="rangeInputM" oninput="maxPriceM.value=this.value"/>
+                               <input type="number" value={{Minmaxprice.Price__max}} min={{Minmaxprice.Price__min}} max={{Minmaxprice.Price__max}}  placeholder="Max" onkeyup="rangeInputM.value=this.value" id="maxPriceM" class="model_year"/>
+
+                            </div>
+                            
+    
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="filter-footer">
+                <!-- <p>Apply</p> -->
+                <a style="color: #fff;" href="{% url 'CarsifyApp:Dashboard' %}"><p>Reset</p></a>
+            </div>
+
+       </div>
+</div>
+<!--sort by mobile slider-->
+<div class="container-fluid sort">
+    <div class="sort-div">
+        <div class="sort-head">
+            <h4>Sort By</h4>
+            <hr>
+        </div>
+
+
+        <div class="sort-cont" >
+
+           
+            <select size="6" id="chsort" class="scrollable">
+                <ul>
+                    <option  value="Relevance"> <li class="testing" id="checkone" value="Relevance"><p>Relevance<span><i class="fa checkicon1"></i></span></p></li>
+                    </option>
+                    
+                    <option value="price-"> <li class="testing" id="checktwo" value="price-"><p>Low To High<span><i class="fa checkicon2"></i></span></p></li>
+                    </option>
+                    
+                    <option value="year+"><li class="testing" id="checkthree" value="year+"><p>New To Old<span><i class="fa checkicon3"></i></span></p></li>
+                    </option>
+                    
+                    <option value="year-">  <li class="testing" id="checkfour" value="year-"><p>Old To New<span><i class="fa checkicon4"></i></span></p></li>
+                    </option>
+                    
+                    <option value="price+"> <li class="testing" id="checkfive" value="price+"><p>High To Low<span><i class="fa checkicon5"></i></span></p></li>
+                    </option>
+                <ul>
+            </select>
+           
+        </div>
+    </div>
+</div>
+    </div>
+
+<!-- ImageModal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Car Images</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="{{data.0.Image.url}}" class="d-block w-100" alt="...">
+                  </div>
+                  {% for image in data %}
+                  {% if img == data|first %}{% else %}
+                  <div class="carousel-item">
+                    <img src="{{img.Image.url}}" class="d-block w-100" alt="...">
+                  </div>
+                  {% endif %}
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a id="detailBtn"><button type="button" class="btn btn-primary">View Details</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- ImageModal -->
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{% static 'assets/javascripts/dashboard.js' %}"></script>
+<script src="{% static 'assets/javascripts/navigation.js' %}"></script>
+<script src="{% static 'assets/javascripts/favourite.js' %}"></script>
+<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'assets/javascripts/mobile-filter-product.js' %}"></script>
+<script src="{% static 'assets/javascripts/filter-product.js' %}"></script>
+
+
+<script>
+    $(".AddFavHeart").click(function () {
+    var carid = $(this).attr("data-cid");
+    $.ajax({
+      type: "GET",
+      url: "/add_favourite_car/" + carid,
+      dataType: "json",
+      success: function (res) {
+          $("#filteredcars").html(res.data);
+      },
+    });
+  });
+  
+  $(".RemFavHeart").click(function () {
+    var carid = $(this).attr("data-cid");
+    $.ajax({
+      type: "GET",
+      url: "/delete_from_favourite/" + carid,
+      dataType: "json",
+      success: function (res) {
+          $("#filteredcars").html(res.data);
+      },
+    });
+  });
+  
+  $(".card-pic").click(function(){
+      var id = $(this).attr("data-cid")
+      $.ajax({
+      type: "GET",
+      url: "/getImage/"+id+"/",
+      dataType: "json",
+      success: function (res) {
+          $(".modal-body").html(res.data)
+          $("#detailBtn").click(function(){
+              window.location.href ="/viewdetails/"+id
+          })
+      },
+    });
+  })
+  </script>
+
+
+</body>
+</html>

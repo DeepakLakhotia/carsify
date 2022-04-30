@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static './assets/stylesheets/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static './assets/stylesheets/navigation.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/.png">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/registration.css' %}">
+    <title>Dealer Application</title>
+</head>
+<body>
+    <div class="boody">
+
+        <nav>
+            <div class="menuicon">
+                <span class="fas fa-bars"></span>
+            </div>
+            <div class="logoo">
+              <img src="{% static 'assets/images/logo7.png' %}"/>
+            </div>
+            <div class="navitems">
+                <li><a href="{% url 'CarsifyApp:Dashboard' %}">Home</a></li>
+                <li><a href="#">
+                    <div class="dropdown show">
+                        <a class="btn dropdown-toggle dropdown-navi" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Booking Management
+                        </a>
+    
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" href="{% url 'CarsifyApp:Addcar' %}">Add Vehicle</a>
+                          <a class="dropdown-item" href="{% url 'CarsifyApp:MYvehicle' %}">My Vehicle</a>
+    
+                        </div>
+                      </div>
+                </a></li>
+                <li><a href="#"><div class="dropdown show">
+                  <a class="btn dropdown-toggle dropdown-navi" href="profile.html" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Profile
+                  </a>
+    
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'CarsifyApp:Profile' %}">View Profile</a>
+                    <a class="dropdown-item" href="{% url 'CarsifyApp:Editprofile' %}">Edit Profile</a>
+                    <a class="dropdown-item" href="{% url 'CarsifyApp:Logout' %}">Logout</a>
+                  </div>
+                </div></a></li>
+                <li><a href="{% url 'CarsifyApp:Favourites' %}">Favourites</a></li>
+                <!-- <li><a href="#">Feedback</a></li> -->
+            </div>
+            <div class="searchicon">
+                <span class="fas fa-search"></span>
+            </div>
+            <div class="cancelicon">
+                <span class="fas fa-times"></span>
+            </div>
+            <form action="#">
+                    <input type="search" class="search-data" placeholder="Search" required>
+                    <button type="submit" class="fas fa-search"></button>
+            </form>
+        </nav>  
+
+<div class="container-fluid main-card" style="margin-top: 30px;" >
+<div class="card mainCard" >
+<article class="card-body mx-auto" style="max-width: 400px;">
+    <span> <i class="person-plus-fill"></i>
+	<h4 class="underline"><span class="card-title mt-3 text-center ct">Register Yourself As A Dealer</span></h4>
+	<form id="dealerform" action="{% url 'CarsifyApp:DealerApplication' %}" method="POST">
+        {% csrf_token %}
+	<h9 class="text_full_name">Full Name</h9>
+	<div class="form-group input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+		 </div>
+        <input name="full_name" class="form-control" type="text">
+    </div> 
+    <h9 class="text_full_name">Phone Number</h9>
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+		</div>
+    	<input name="contact" class="form-control" type="text">
+    </div> 
+    <h9 class="text_full_name">Email</h9>
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+		 </div>
+        <input name="email" class="form-control"  type="email">
+    </div> 
+    <h9 class="text_full_name">Dealer's Proof</h9>    
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="bi bi-list-columns-reverse"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-columns-reverse" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 .5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10A.5.5 0 0 1 4 .5Zm-4 2A.5.5 0 0 1 .5 2h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 4h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 6h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 8h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Z"/>
+                </svg>
+            </span>
+		</div>
+        <input name="doc" class="form-control" type="file">
+		<select class="custom-select">
+            <option selected=""></option>
+			<option>Aadhar Card</option>
+			<option>Pan Card</option>
+			<option>Any Other</option>
+		</select>
+	</div> 
+    <h9 class="text_full_name">Enter Current Password</h9>
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		</div>
+        <input Name = "password" class="form-control" type="password">
+    </div> 
+    <form action="#" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy'); return false; }">
+        <input type="checkbox" name="checkbox" value="check" id="agree" /> Agree to Terms and Conditions
+    </form>                                     
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary button" form="dealerform"> Apply </button>
+    </div>       
+                                                                    
+</form>
+</article>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{% static './assets/javascripts/dashboard.js' %}"></script>
+<script src="{% static './assets/javascripts/navigation.js' %}"></script>
+</body>
+</html>
